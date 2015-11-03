@@ -14,6 +14,10 @@ Doorkeeper.configure do
   default_scopes :public
   optional_scopes(*Garage::TokenScope.optional_scopes)
 
+  resource_owner_authenticator do
+    current_tourist || redirect_to(new_tourist_session_path)
+  end
+
   resource_owner_from_credentials do |routes|
     Tourist.authenticate(params[:name], params[:password])
   end
