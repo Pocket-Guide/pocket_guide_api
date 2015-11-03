@@ -14,4 +14,3 @@ group :development, :test do
   gem 'pry-rails'
   gem 'spring'
 end
-
