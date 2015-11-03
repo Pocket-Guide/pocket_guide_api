@@ -15,12 +15,11 @@ Doorkeeper.configure do
   optional_scopes(*Garage::TokenScope.optional_scopes)
 
   resource_owner_authenticator do
-    binding.pry
     current_tourist || redirect_to(new_tourist_session_path)
   end
 
   resource_owner_from_credentials do |routes|
-    Tourist.find_by(email: params[:email])
+    Tourist.authenticate(params[:email])
   end
 end
 
