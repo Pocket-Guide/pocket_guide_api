@@ -1,6 +1,6 @@
 class TouristsController < ApplicationController
   include Garage::RestfulActions
-  skip_before_action :doorkeeper_authorize!, only: :create
+  skip_before_action :doorkeeper_authorize!
 
   def require_resources
     @resources = Tourist.all
