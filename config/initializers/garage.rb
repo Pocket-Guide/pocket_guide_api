@@ -19,7 +19,7 @@ Doorkeeper.configure do
   end
 
   resource_owner_from_credentials do |routes|
-    Tourist.authenticate(params[:email])
+    Tourist.find_by(email: params[:email])
   end
 end
 
