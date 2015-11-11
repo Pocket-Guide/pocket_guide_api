@@ -1,28 +1,41 @@
-== README
+# What kind of API
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+### Introduction
 
-Things you may want to cover:
+Please launch 'pocket_guide_api'
+if you launch at http://localhost:3000, you can get api as below.
 
-* Ruby version
+### How to create access token
 
-* System dependencies
+1, connect to http://localhost:3000/oauth/applications
+2, register your client application. Then you can get client_id and client_secret
 
-* Configuration
+3, if you access as below, you can get access token
 
-* Database creation
+```
+curl -u "client_id:client_secret_key" -XPOST http://localhost:3000/oauth/token -d 'grant_type=password&email=hogehoge@example.com'
 
-* Database initialization
+```
 
-* How to run the test suite
+- http type: POST
 
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+- necessary parameter: grant_type, and authenticaton flag
 
 
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
+### How to get current_user
+
+by using access token, you can get current_user.
+Let's try as below.
+
+```
+curl -s -XGET -H "Authorization: Bearer (access_token)" http://localhost:3000/users
+```
+
+### How to create user
+
+- url: http://localhost:3000/users
+
+- http type: POST
+
+- necessary parameters: email, password, password_confirmation, name
+
