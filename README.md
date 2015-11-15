@@ -22,18 +22,18 @@ curl -u "client_id:client_secret_key" -XPOST http://localhost:3000/oauth/token -
 - necessary parameter: grant_type, and authenticaton flag
 
 
-### How to get current_user
+### How to get current_tourist
 
 by using access token, you can get current_user.
 Let's try as below.
 
 ```
-curl -s -XGET -H "Authorization: Bearer (access_token)" http://localhost:3000/users
+curl -s -XGET -H "Authorization: Bearer (access_token)" http://localhost:3000/tourists
 ```
 
-### How to create user
+### How to create tourist
 
-- url: http://localhost:3000/users
+- url: http://localhost:3000/tourists
 
 - http type: POST
 
