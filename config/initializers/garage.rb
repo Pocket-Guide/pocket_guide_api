@@ -21,7 +21,7 @@ Doorkeeper.configure do
   end
 
   resource_owner_from_credentials do |routes|
-    if params[:scope] == "tourist"
+    if params[:scopes] == "tourist"
       Tourist.find_by(email: params[:email])
     else
       Guide.find_by(email: params[:email])
