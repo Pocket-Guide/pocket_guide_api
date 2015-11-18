@@ -15,5 +15,13 @@ module StructureHelper
         email: a_kind_of(String)
       }
     end
+
+    let(:guide_structure) do
+      {
+        id: a_kind_of(Integer),
+        name: a_kind_of(String),
+        email: a_kind_of(String)
+      }
+    end
   end
 end

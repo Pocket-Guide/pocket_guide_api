@@ -4,6 +4,8 @@ Garage::TokenScope.configure do
   register :public, desc: 'acessing publicly available data' do
     access :read, Tourist
     access :write, Tourist
+    access :read, Guide
+    access :write, Guide
   end
 end
 
@@ -19,7 +21,11 @@ Doorkeeper.configure do
   end
 
   resource_owner_from_credentials do |routes|
-    Tourist.find_by(email: params[:email])
+    if params[:scope] == "tourist"
+      Tourist.find_by(email: params[:email])
+    else
+      Guide.find_by(email: params[:email])
+    end
   end
 end
 
