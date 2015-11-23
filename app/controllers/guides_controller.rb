@@ -1,6 +1,9 @@
 class GuidesController < ApplicationController
   include Garage::RestfulActions
   skip_before_action :doorkeeper_authorize!
+  before_action except: :create do
+    doorkeeper_authorize! :guide
+  end
 
   def require_resources
     @resources = Guide.all

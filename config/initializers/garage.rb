@@ -1,9 +1,19 @@
-Garage.configure {}
+Garage.configure do
+  rescue_error = false
+end
 
 Garage::TokenScope.configure do
-  register :public, desc: 'acessing publicly available data' do
+  register :public do
     access :read, Tourist
     access :write, Tourist
+    access :read, Guide
+    access :write, Guide
+  end
+  register :tourist, desc: 'acessing publicly available data' do
+    access :read, Tourist
+    access :write, Tourist
+  end
+  register :guide, desc: 'acessing publicly available data' do
     access :read, Guide
     access :write, Guide
   end
@@ -21,12 +31,14 @@ Doorkeeper.configure do
   end
 
   resource_owner_from_credentials do |routes|
-    if params[:scopes] == "tourist"
+    if params[:scope] == "tourist"
       Tourist.find_by(email: params[:email])
     else
       Guide.find_by(email: params[:email])
     end
   end
+
+  access_token_expires_in 4.hours
 end
 
 Doorkeeper.configuration.token_grant_types << "password"
