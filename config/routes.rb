@@ -5,6 +5,8 @@ Rails.application.routes.draw do
     resources :guides
     scope :current_tourist do
       resource :current_tourist, path: "me", only: :show, controller: :current_tourist do
+        resources :questions
+        resources :answers
       end
     end
     scope :current_guide do
