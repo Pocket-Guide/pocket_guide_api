@@ -2,6 +2,8 @@ class Choice < ActiveRecord::Base
   include Garage::Representer
   include Garage::Authorizable
 
+  belongs_to :question
+
   property :id
   property :content
   property :question_id

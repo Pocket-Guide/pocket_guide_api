@@ -8,6 +8,8 @@ Garage::TokenScope.configure do
     access :write, Tourist
     access :read, Guide
     access :write, Guide
+    access :read, Question
+    access :read, Answer
   end
   register :tourist, desc: 'acessing publicly available data' do
     access :read, Tourist
