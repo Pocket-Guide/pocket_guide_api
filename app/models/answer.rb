@@ -2,9 +2,15 @@ class Answer < ActiveRecord::Base
   include Garage::Representer
   include Garage::Authorizable
 
+  belongs_to :choice
+  belongs_to :tour
+  belongs_to :question
+
   property :id
   property :choice
   property :tour_id
+  property :choice_id
+  property :question_id
 
   def self.build_permissions(perms, other, target)
     perms.permits! :read

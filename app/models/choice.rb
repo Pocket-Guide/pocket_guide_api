@@ -3,10 +3,12 @@ class Choice < ActiveRecord::Base
   include Garage::Authorizable
 
   belongs_to :question
+  has_many :answers
 
   property :id
   property :content
   property :question_id
+  collection :answers
 
   def self.build_permissions(perms, other, target)
     perms.permits! :read
