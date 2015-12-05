@@ -39,3 +39,39 @@ curl -s -XGET -H "Authorization: Bearer (access_token)" http://localhost:3000/to
 
 - necessary parameters: email, password, password_confirmation, name
 
+
+
+
+### Planning Flow
+
+####1. Create Tour
+
+Tour is a package. You have to create a tour before answering some questions.
+
+#####Tour column
+
+- content: text
+- tourist_id: integer
+
+#####How to post
+
+- http type: POST
+
+- path: `/current_tourist/me/tours`
+
+
+####2. get questions
+
+##### how to get questions
+
+- Http type: GET
+
+- path: `/current_tourist/me/questions`
+
+####3. Post answers
+
+##### How to post answers
+
+- Http type: POST
+
+- path: `/current_tourist/me/answers`
