@@ -8,6 +8,7 @@ Rails.application.routes.draw do
       resource :current_tourist, path: "me", only: :show, controller: :current_tourist do
         resources :questions, module: 'current_tourist'
         resources :answers, module: 'current_tourist'
+        resources :tours, module: 'current_tourist'
       end
     end
 
