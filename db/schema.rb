@@ -11,43 +11,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151203093205) do
-
-  create_table "admins", force: :cascade do |t|
-    t.string   "name",                   limit: 255
-    t.string   "email",                  limit: 255, default: "", null: false
-    t.string   "encrypted_password",     limit: 255, default: "", null: false
-    t.string   "reset_password_token",   limit: 255
-    t.datetime "reset_password_sent_at"
-    t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          limit: 4,   default: 0,  null: false
-    t.datetime "current_sign_in_at"
-    t.datetime "last_sign_in_at"
-    t.string   "current_sign_in_ip",     limit: 255
-    t.string   "last_sign_in_ip",        limit: 255
-    t.datetime "created_at",                                      null: false
-    t.datetime "updated_at",                                      null: false
-  end
-
-  add_index "admins", ["email"], name: "index_admins_on_email", unique: true, using: :btree
-  add_index "admins", ["reset_password_token"], name: "index_admins_on_reset_password_token", unique: true, using: :btree
+ActiveRecord::Schema.define(version: 20151210154435) do
 
   create_table "answers", force: :cascade do |t|
     t.datetime "created_at",            null: false
     t.datetime "updated_at",            null: false
     t.integer  "question_id", limit: 4
-    t.integer  "tour_id",     limit: 4
     t.integer  "choice_id",   limit: 4
+    t.integer  "plan_id",     limit: 4
   end
 
   add_index "answers", ["choice_id"], name: "index_answers_on_choice_id", using: :btree
+  add_index "answers", ["plan_id"], name: "index_answers_on_plan_id", using: :btree
   add_index "answers", ["question_id"], name: "index_answers_on_question_id", using: :btree
-  add_index "answers", ["tour_id"], name: "index_answers_on_tour_id", using: :btree
 
   create_table "choices", force: :cascade do |t|
     t.text     "content",     limit: 65535
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
     t.integer  "question_id", limit: 4
   end
 
@@ -112,10 +93,19 @@ ActiveRecord::Schema.define(version: 20151203093205) do
 
   add_index "oauth_applications", ["uid"], name: "index_oauth_applications_on_uid", unique: true, using: :btree
 
+  create_table "plans", force: :cascade do |t|
+    t.string   "title",      limit: 255
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+    t.integer  "tourist_id", limit: 4
+  end
+
+  add_index "plans", ["tourist_id"], name: "index_plans_on_tourist_id", using: :btree
+
   create_table "questions", force: :cascade do |t|
     t.text     "content",    limit: 65535
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
   end
 
   create_table "tourists", force: :cascade do |t|
@@ -137,18 +127,9 @@ ActiveRecord::Schema.define(version: 20151203093205) do
   add_index "tourists", ["email"], name: "index_tourists_on_email", unique: true, using: :btree
   add_index "tourists", ["reset_password_token"], name: "index_tourists_on_reset_password_token", unique: true, using: :btree
 
-  create_table "tours", force: :cascade do |t|
-    t.text     "content",    limit: 65535
-    t.datetime "created_at",               null: false
-    t.datetime "updated_at",               null: false
-    t.integer  "tourist_id", limit: 4
-  end
-
-  add_index "tours", ["tourist_id"], name: "index_tours_on_tourist_id", using: :btree
-
   add_foreign_key "answers", "choices"
+  add_foreign_key "answers", "plans"
   add_foreign_key "answers", "questions"
-  add_foreign_key "answers", "tours"
   add_foreign_key "choices", "questions"
-  add_foreign_key "tours", "tourists"
+  add_foreign_key "plans", "tourists"
 end

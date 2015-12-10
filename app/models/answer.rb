@@ -3,12 +3,12 @@ class Answer < ActiveRecord::Base
   include Garage::Authorizable
 
   belongs_to :choice
-  belongs_to :tour
+  belongs_to :plan
   belongs_to :question
 
   property :id
   property :choice
-  property :tour_id
+  property :tour_plan_id
   property :choice_id
   property :question_id
 

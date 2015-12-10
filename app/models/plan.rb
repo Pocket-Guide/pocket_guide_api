@@ -1,4 +1,4 @@
-class Tour < ActiveRecord::Base
+class Plan < ActiveRecord::Base
   include Garage::Representer
   include Garage::Authorizable
 
