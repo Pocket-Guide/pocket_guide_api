@@ -131,6 +131,7 @@ GEM
     rack (1.6.4)
     rack-accept-default (0.0.2)
       rack
+    rack-cors (0.4.0)
     rack-test (0.6.3)
       rack (>= 1.0)
     rails (4.2.3)
@@ -222,9 +223,13 @@ DEPENDENCIES
   garage-doorkeeper
   mysql2 (= 0.3.18)
   pry-rails
+  rack-cors
   rails (= 4.2.3)
   responders (~> 2.0)
   rspec-rails (~> 3.1.0)
   sdoc (~> 0.4.0)
   spring
   web-console (~> 2.0)
+
+BUNDLED WITH
+   1.10.6

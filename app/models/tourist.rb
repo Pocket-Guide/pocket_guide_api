@@ -5,6 +5,8 @@ class Tourist < ActiveRecord::Base
   include Garage::Representer
   include Garage::Authorizable
 
+  has_many :tours
+
   property :id
   property :name
   property :email

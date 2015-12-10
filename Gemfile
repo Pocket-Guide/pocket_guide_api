@@ -7,6 +7,7 @@ gem 'garage', github: 'cookpad/garage'
 gem 'garage-doorkeeper'
 gem 'responders', '~> 2.0'
 gem 'devise'
+gem 'rack-cors', require: 'rack/cors'
 
 group :development, :test do
   gem 'rspec-rails', "~> 3.1.0"
