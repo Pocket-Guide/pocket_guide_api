@@ -10,7 +10,7 @@ class CurrentTourist::PlansController < ApplicationController
 
   private
   def tour_params
-    params.permit(:content, :tourist_id)
+    params.permit(:content, :tourist_id, answers_attributes: [:question_id, :plan_id, :choice_id])
   end
 
   def require_resources
