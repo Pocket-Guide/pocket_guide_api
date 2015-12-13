@@ -8,7 +8,7 @@ class Plan < ActiveRecord::Base
   accepts_nested_attributes_for :answers
 
   property :id
-  property :content
+  property :title
   property :tourist_id
   collection :answers
 

@@ -14,7 +14,7 @@ class TouristsController < ApplicationController
   end
 
   def create_resource
-    @resources.create(tourist_params)
+    @resource = @resources.create(tourist_params)
   end
 
   def update_resource

@@ -3,14 +3,14 @@ class CurrentTourist::PlansController < ApplicationController
   skip_before_action :doorkeeper_authorize!
 
   def create_resource
-    @resource = current_resource_owner.tours.new(tour_params)
+    @resource = current_resource_owner.plans.new(plan_params)
     @resource.save!
     @resource
   end
 
   private
-  def tour_params
-    params.permit(:content, :tourist_id, answers_attributes: [:question_id, :plan_id, :choice_id])
+  def plan_params
+    params.permit(:title, answers_attributes: [:question_id, :choice_id])
   end
 
   def require_resources
