@@ -8,7 +8,7 @@ class Answer < ActiveRecord::Base
 
   property :id
   property :choice
-  property :tour_plan_id
+  property :plan_id
   property :choice_id
   property :question_id
 
