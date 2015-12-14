@@ -8,6 +8,8 @@ gem 'garage-doorkeeper'
 gem 'responders', '~> 2.0'
 gem 'devise'
 gem 'rack-cors', require: 'rack/cors'
+gem 'jp_prefecture'
+gem 'counter_culture'
 
 group :development, :test do
   gem 'rspec-rails', "~> 3.1.0"

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151210154435) do
+ActiveRecord::Schema.define(version: 20151214134807) do
 
   create_table "answers", force: :cascade do |t|
     t.datetime "created_at",            null: false
@@ -27,8 +27,8 @@ ActiveRecord::Schema.define(version: 20151210154435) do
 
   create_table "choices", force: :cascade do |t|
     t.text     "content",     limit: 65535
-    t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.integer  "question_id", limit: 4
   end
 
@@ -52,6 +52,14 @@ ActiveRecord::Schema.define(version: 20151210154435) do
 
   add_index "guides", ["email"], name: "index_guides_on_email", unique: true, using: :btree
   add_index "guides", ["reset_password_token"], name: "index_guides_on_reset_password_token", unique: true, using: :btree
+
+  create_table "locations", force: :cascade do |t|
+    t.string   "name",         limit: 255
+    t.integer  "prefecture",   limit: 4
+    t.text     "introduction", limit: 65535
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+  end
 
   create_table "oauth_access_grants", force: :cascade do |t|
     t.integer  "resource_owner_id", limit: 4,     null: false
@@ -93,6 +101,11 @@ ActiveRecord::Schema.define(version: 20151210154435) do
 
   add_index "oauth_applications", ["uid"], name: "index_oauth_applications_on_uid", unique: true, using: :btree
 
+  create_table "plan_locations", force: :cascade do |t|
+    t.integer "plan_id",     limit: 4
+    t.integer "location_id", limit: 4
+  end
+
   create_table "plans", force: :cascade do |t|
     t.string   "title",      limit: 255
     t.datetime "created_at",             null: false
@@ -104,8 +117,8 @@ ActiveRecord::Schema.define(version: 20151210154435) do
 
   create_table "questions", force: :cascade do |t|
     t.text     "content",    limit: 65535
-    t.datetime "created_at",               null: false
-    t.datetime "updated_at",               null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "tourists", force: :cascade do |t|
