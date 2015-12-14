@@ -1,4 +1,9 @@
 Rails.application.routes.draw do
+  devise_for :admins
+  namespace :admin do
+    resources :locations
+  end
+
   constraints(format: :json) do
     use_doorkeeper
     resources :tourists
