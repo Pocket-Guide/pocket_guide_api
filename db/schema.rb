@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151214134807) do
+ActiveRecord::Schema.define(version: 20151214140510) do
 
   create_table "answers", force: :cascade do |t|
     t.datetime "created_at",            null: false
@@ -59,6 +59,11 @@ ActiveRecord::Schema.define(version: 20151214134807) do
     t.text     "introduction", limit: 65535
     t.datetime "created_at",                 null: false
     t.datetime "updated_at",                 null: false
+  end
+
+  create_table "measurements", force: :cascade do |t|
+    t.integer "choice_id",    limit: 4
+    t.integer "answer_count", limit: 4, default: 0, null: false
   end
 
   create_table "oauth_access_grants", force: :cascade do |t|
