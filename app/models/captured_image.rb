@@ -4,6 +4,8 @@ class CapturedImage < ActiveRecord::Base
 
   belongs_to :location
 
+  mount_uploader :name, CapturedImageUploader
+
   def self.build_permissions(perms, other, target)
     perms.permits! :read
     perms.permits! :write
