@@ -9,5 +9,14 @@
 
     %h4 都道府県
     = f.collection_select :prefecture, JpPrefecture::Prefecture.all, :code, :name
-    %br
+    = f.fields_for :captured_images do |captured_image|
+      .fileinput.fileinput-new{ "data-provides": "fileinput" }
+        .fileinput-new.thumbnail{ style: "width: 200px height: 150px;" }
+          %img{ "data-src": "holder.js/100%x100%" }
+        .fileinput-preview.fileinput-exists.thumbnail{ style: "max-width: 200px; max-height: 150px;" }
+        .captured_image_form
+          %span.btn.btn-default.btn-file
+            %span.fileinput-new
+              = captured_image.file_field :name
+
     = f.submit "作成", class: "btn btn-primary btn_location"

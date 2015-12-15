@@ -4,6 +4,7 @@ class Admin::LocationsController < AdminsController
 
   def new
     @location = Location.new
+    @captured_image = @location.captured_images.build
   end
 
   def create
@@ -17,6 +18,6 @@ class Admin::LocationsController < AdminsController
 
   private
   def location_params
-    params.require(:location).permit(:name, :introduction, :prefecture)
+    params.require(:location).permit(:name, :introduction, :prefecture, captured_images_attributes: [:name, :status])
   end
 end

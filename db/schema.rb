@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151215173638) do
+ActiveRecord::Schema.define(version: 20151215174502) do
 
   create_table "admins", force: :cascade do |t|
     t.string   "email",                  limit: 255, default: "", null: false
@@ -44,11 +44,14 @@ ActiveRecord::Schema.define(version: 20151215173638) do
   add_index "answers", ["question_id"], name: "index_answers_on_question_id", using: :btree
 
   create_table "captured_images", force: :cascade do |t|
-    t.string   "name",       limit: 255
-    t.integer  "status",     limit: 4
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
+    t.string   "name",        limit: 255
+    t.integer  "status",      limit: 4
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+    t.integer  "location_id", limit: 4
   end
+
+  add_index "captured_images", ["location_id"], name: "index_captured_images_on_location_id", using: :btree
 
   create_table "choices", force: :cascade do |t|
     t.text     "content",     limit: 65535
@@ -173,6 +176,7 @@ ActiveRecord::Schema.define(version: 20151215173638) do
   add_foreign_key "answers", "choices"
   add_foreign_key "answers", "plans"
   add_foreign_key "answers", "questions"
+  add_foreign_key "captured_images", "locations"
   add_foreign_key "choices", "questions"
   add_foreign_key "plans", "tourists"
 end

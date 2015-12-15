@@ -7,6 +7,12 @@ class Location < ActiveRecord::Base
 
   accepts_nested_attributes_for :captured_images
 
+  enum status: [:main, :sub]
+
+  property :id
+  property :name
+  property :introduction
+
   def self.build_permissions(perms, other, target)
     perms.permits! :read
     perms.permits! :write

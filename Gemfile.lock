@@ -129,6 +129,8 @@ GEM
       ruby_parser (~> 3.5)
     http_accept_language (2.0.5)
     i18n (0.7.0)
+    jasny-bootstrap-rails (3.1.3)
+      railties (>= 3.0)
     jp_prefecture (0.8.0)
     jquery-rails (4.0.5)
       rails-dom-testing (~> 1.0)
@@ -276,6 +278,7 @@ DEPENDENCIES
   garage!
   garage-doorkeeper
   haml-rails
+  jasny-bootstrap-rails
   jp_prefecture
   jquery-rails (~> 4.0.0.beta2)
   mysql2 (= 0.3.18)

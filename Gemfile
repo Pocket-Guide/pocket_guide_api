@@ -22,6 +22,7 @@ gem 'uglifier', '>= 1.3.0'
 gem 'jquery-rails', '~> 4.0.0.beta2'
 gem 'turbolinks'
 gem 'carrierwave'
+gem 'jasny-bootstrap-rails'
 
 group :development, :test do
   gem 'rspec-rails', "~> 3.1.0"
