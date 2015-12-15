@@ -15,6 +15,7 @@ Rails.application.routes.draw do
         resources :questions, module: 'current_tourist'
         resources :answers, module: 'current_tourist'
         resources :plans, module: 'current_tourist'
+        resources :locations, module: 'current_tourist'
       end
     end
 
