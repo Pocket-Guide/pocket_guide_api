@@ -1,0 +1,13 @@
+.row
+  %h3 観光地入力フォーム
+  = form_for [:admin, @location] do |f|
+    %h4 観光地名
+    = f.text_field :name
+
+    %h4 観光地紹介
+    = f.text_area :introduction, size: "100×500"
+
+    %h4 都道府県
+    = f.collection_select :prefecture, JpPrefecture::Prefecture.all, :code, :name
+    %br
+    = f.submit "作成", class: "btn btn-primary btn_location"

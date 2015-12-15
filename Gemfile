@@ -11,6 +11,17 @@ gem 'rack-cors', require: 'rack/cors'
 gem 'jp_prefecture'
 gem 'counter_culture'
 
+#admin
+gem 'erb2haml'
+gem 'haml-rails'
+gem 'execjs'
+gem 'therubyracer'
+gem 'sass-rails', '~> 5.0.3'
+gem 'bootstrap-sass'
+gem 'uglifier', '>= 1.3.0'
+gem 'jquery-rails', '~> 4.0.0.beta2'
+gem 'turbolinks'
+
 group :development, :test do
   gem 'rspec-rails', "~> 3.1.0"
   gem 'factory_girl_rails', "~> 4.4.1"

@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   namespace :admin do
     resources :locations
   end
+  get 'admin' => 'admin/locations#index'
 
   constraints(format: :json) do
     use_doorkeeper
