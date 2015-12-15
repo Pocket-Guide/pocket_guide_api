@@ -1,11 +1,8 @@
-class Location < ActiveRecord::Base
+class CapturedImage < ActiveRecord::Base
   include Garage::Representer
   include Garage::Authorizable
 
-  has_many :plans, through: :plan_locations
-  has_many :captured_images
-
-  accepts_nested_attributes_for :captured_images
+  belongs_to :location
 
   def self.build_permissions(perms, other, target)
     perms.permits! :read
