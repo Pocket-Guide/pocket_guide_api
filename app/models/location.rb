@@ -27,16 +27,15 @@ class Location < ActiveRecord::Base
     perms.permits! :write if self == other
   end
 
-  def self.classify_location
+  def self.classify_location(answers)
     locations = Location.all.map.each do |location|
-      location.percentage = bayes_theorem(location)
+      location.percentage = bayes_theorem(location, answers)
       location
     end
     locations.sort!{|a, b| b.percentage <=> a.percentage }
   end
 
-  def self.conditional_probability(location)
-    answers = Plan.find(30).answers
+  def self.conditional_probability(location, answers)
     plans = []
     location.plans.each do |plan|
       size = 0
@@ -59,8 +58,7 @@ class Location < ActiveRecord::Base
     end
   end
 
-  def self.probability_x
-    answers = Plan.find(30).answers
+  def self.probability_x(answers)
     plans = []
     Plan.all.each do |plan|
       size = 0
@@ -82,7 +80,7 @@ class Location < ActiveRecord::Base
     probability = location.plans.count.to_f / Plan.all.count
   end
 
-  def self.bayes_theorem(location)
-    probability = conditional_probability(location) * probability_y(location) / probability_x
+  def self.bayes_theorem(location, answers)
+    probability = conditional_probability(location, answers) * probability_y(location) / probability_x(answers)
   end
 end

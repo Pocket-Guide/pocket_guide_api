@@ -32,8 +32,8 @@ ActiveRecord::Schema.define(version: 20151215174502) do
   add_index "admins", ["reset_password_token"], name: "index_admins_on_reset_password_token", unique: true, using: :btree
 
   create_table "answers", force: :cascade do |t|
-    t.datetime "created_at",            null: false
-    t.datetime "updated_at",            null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.integer  "question_id", limit: 4
     t.integer  "choice_id",   limit: 4
     t.integer  "plan_id",     limit: 4
