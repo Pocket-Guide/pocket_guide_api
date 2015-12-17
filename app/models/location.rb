@@ -2,7 +2,8 @@ class Location < ActiveRecord::Base
   include Garage::Representer
   include Garage::Authorizable
 
-  attr_reader :probability
+  attr_accessor :percentage
+
 
   has_many :plan_locations
   has_many :plans, through: :plan_locations
@@ -27,14 +28,17 @@ class Location < ActiveRecord::Base
   end
 
   def self.classify_location
-
+    locations = Location.all.map.each do |location|
+      location.percentage = bayes_theorem(location)
+      location
+    end
+    locations.sort!{|a, b| b.percentage <=> a.percentage }
   end
 
-  def self.conditional_probability
-    @location = Location.first
+  def self.conditional_probability(location)
     answers = Plan.find(30).answers
     plans = []
-    @location.plans.each do |plan|
+    location.plans.each do |plan|
       size = 0
       plan.answers.each do |answer|
         answers.each do |_answer|
@@ -47,9 +51,12 @@ class Location < ActiveRecord::Base
         plans << plan
       end
     end
-    @plan_count = @location.plans.count
-    probability = (plans.count.to_f / @plan_count.to_f)
-    return probability
+    if plans.count > 0
+      @plan_count = location.plans.count
+      probability = (plans.count.to_f / @plan_count.to_f)
+    else
+      probability = 0
+    end
   end
 
   def self.probability_x
@@ -69,18 +76,13 @@ class Location < ActiveRecord::Base
       end
     end
     probability = plans.count.to_f / Plan.all.count.to_f
-    return probability
-
   end
 
-  def self.probability_y
-    @location = Location.first
-    probability = @location.plans.count.to_f / Plan.all.count
-    return probability
+  def self.probability_y(location)
+    probability = location.plans.count.to_f / Plan.all.count
   end
 
-  def self.bayes_theorem
-    probability = conditional_probability * probability_y / probability_x
-    return probability
+  def self.bayes_theorem(location)
+    probability = conditional_probability(location) * probability_y(location) / probability_x
   end
 end
