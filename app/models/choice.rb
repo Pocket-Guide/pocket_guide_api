@@ -8,7 +8,6 @@ class Choice < ActiveRecord::Base
   property :id
   property :content
   property :question_id
-  collection :answers
 
   def self.build_permissions(perms, other, target)
     perms.permits! :read

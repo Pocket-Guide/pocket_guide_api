@@ -3,6 +3,7 @@ class Plan < ActiveRecord::Base
   include Garage::Authorizable
 
   has_many :answers
+  has_many :plan_locations
   has_many :locations, through: :plan_locations
   belongs_to :tourist
 
