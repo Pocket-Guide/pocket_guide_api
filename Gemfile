@@ -10,6 +10,7 @@ gem 'devise'
 gem 'rack-cors', require: 'rack/cors'
 gem 'jp_prefecture'
 gem 'counter_culture'
+gem 'fog'
 
 #admin
 gem 'erb2haml'

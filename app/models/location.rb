@@ -16,6 +16,7 @@ class Location < ActiveRecord::Base
   property :id
   property :name
   property :introduction
+  collection :captured_images
 
   def self.build_permissions(perms, other, target)
     perms.permits! :read

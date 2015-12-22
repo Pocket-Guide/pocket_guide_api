@@ -22,7 +22,9 @@ Garage::TokenScope.configure do
     access :read, Question
     access :write, Question
     access :read, Location
+    access :write, Location
     access :read, CapturedImage
+    access :write, CapturedImage
   end
   register :guide, desc: 'acessing publicly available data' do
     access :read, Guide
