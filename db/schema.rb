@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151215174502) do
+ActiveRecord::Schema.define(version: 20151224051823) do
 
   create_table "admins", force: :cascade do |t|
     t.string   "email",                  limit: 255, default: "", null: false
@@ -87,6 +87,9 @@ ActiveRecord::Schema.define(version: 20151215174502) do
     t.text     "introduction", limit: 65535
     t.datetime "created_at",                 null: false
     t.datetime "updated_at",                 null: false
+    t.string   "address",      limit: 255
+    t.integer  "latitude",     limit: 4
+    t.integer  "longitude",    limit: 4
   end
 
   create_table "measurements", force: :cascade do |t|
@@ -144,6 +147,7 @@ ActiveRecord::Schema.define(version: 20151215174502) do
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
     t.integer  "tourist_id", limit: 4
+    t.integer  "prefecture", limit: 4
   end
 
   add_index "plans", ["tourist_id"], name: "index_plans_on_tourist_id", using: :btree

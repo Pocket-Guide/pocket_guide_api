@@ -3,6 +3,7 @@ class Location < ActiveRecord::Base
   include Garage::Authorizable
 
   attr_accessor :percentage
+  attr_accessor :status
 
 
   has_many :plan_locations
@@ -16,7 +17,12 @@ class Location < ActiveRecord::Base
   property :id
   property :name
   property :introduction
+  property :status
   collection :captured_images
+
+  after_initialize do
+    self.status = 0
+  end
 
   def self.build_permissions(perms, other, target)
     perms.permits! :read
@@ -83,5 +89,13 @@ class Location < ActiveRecord::Base
 
   def self.bayes_theorem(location, answers)
     probability = conditional_probability(location, answers) * probability_y(location) / probability_x(answers)
+  end
+
+  def self.associate_to_plan(locations, plan)
+    locations.each do |location|
+      @location = self.find(location[:id])
+      plan.locations << @location
+    end
+    plan.locations
   end
 end

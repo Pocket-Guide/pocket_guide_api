@@ -10,7 +10,7 @@ class CurrentTourist::PlansController < ApplicationController
 
   private
   def plan_params
-    params.permit(:title, answers_attributes: [:question_id, :choice_id])
+    params.permit(:title, :prefecture,answers_attributes: [:question_id, :choice_id])
   end
 
   def require_resources

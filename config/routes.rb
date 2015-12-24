@@ -19,7 +19,7 @@ Rails.application.routes.draw do
         resources :plans, module: 'current_tourist'
         resources :plans, only: :show, module: 'current_tourist' do
           resources :recommendations, only: :index, module: "plans"
-          resources :locations, only: :index, module: "plans"
+          resources :locations, only: [:index, :create, :destroy], module: "plans"
         end
       end
     end
