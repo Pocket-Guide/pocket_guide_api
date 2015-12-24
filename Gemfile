@@ -11,6 +11,7 @@ gem 'rack-cors', require: 'rack/cors'
 gem 'jp_prefecture'
 gem 'counter_culture'
 gem 'fog'
+gem 'rails_config'
 
 #admin
 gem 'erb2haml'
