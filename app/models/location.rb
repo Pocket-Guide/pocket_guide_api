@@ -40,6 +40,7 @@ class Location < ActiveRecord::Base
       location
     end
     locations.sort!{|a, b| b.percentage <=> a.percentage }
+    locations[0, 4]
   end
 
   def self.conditional_probability(location, answers)
@@ -93,8 +94,10 @@ class Location < ActiveRecord::Base
 
   def self.associate_to_plan(locations, plan)
     locations.each do |location|
-      @location = self.find(location[:id])
-      plan.locations << @location
+      if location[:status] == 1
+        @location = self.find(location[:id])
+        plan.locations << @location
+      end
     end
     plan.locations
   end
