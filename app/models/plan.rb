@@ -13,6 +13,7 @@ class Plan < ActiveRecord::Base
   property :title
   property :tourist_id
   collection :answers
+  collection :locations
 
   def self.build_permissions(perms, other, target)
     perms.permits! :read

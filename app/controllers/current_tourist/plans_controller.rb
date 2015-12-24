@@ -8,6 +8,10 @@ class CurrentTourist::PlansController < ApplicationController
     @resource
   end
 
+  def require_resource
+    @resource = Plan.find(params[:id])
+  end
+
   private
   def plan_params
     params.permit(:title, :prefecture,answers_attributes: [:question_id, :choice_id])
