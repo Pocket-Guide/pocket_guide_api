@@ -10,6 +10,7 @@ class Tourist < ActiveRecord::Base
   property :id
   property :name
   property :email
+  collection :plans
 
   def self.build_permissions(perms, other, target)
     perms.permits! :read

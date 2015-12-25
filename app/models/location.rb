@@ -18,6 +18,8 @@ class Location < ActiveRecord::Base
   property :name
   property :introduction
   property :status
+  property :latitude
+  property :longitude
   collection :captured_images
 
   after_initialize do
@@ -36,69 +38,147 @@ class Location < ActiveRecord::Base
 
   def self.classify_location(answers)
     locations = Location.all.map.each do |location|
-      location.percentage = bayes_theorem(location, answers)
+      location.percentage = bayes_theorem(location, answers) * 100
       location
     end
     locations.sort!{|a, b| b.percentage <=> a.percentage }
-    locations[0, 4]
+    locations[0, 6]
   end
 
-  def self.conditional_probability(location, answers)
-    plans = []
-    location.plans.each do |plan|
-      size = 0
-      plan.answers.each do |answer|
-        answers.each do |_answer|
-          if answer.choice_id == _answer.choice_id
-            size += 1
-          end
-        end
-      end
-      if size == plan.answers.count
-        plans << plan
-      end
-    end
-    if plans.count > 0
-      @plan_count = location.plans.count
-      probability = (plans.count.to_f / @plan_count.to_f)
-    else
-      probability = 0
-    end
-  end
-
-  def self.probability_x(answers)
-    plans = []
-    Plan.all.each do |plan|
-      size = 0
-      plan.answers.each do |answer|
-        answers.each do |_answer|
-          if answer.choice_id == _answer.choice_id
-            size += 1
-          end
-        end
-      end
-      if size == plan.answers.count
-        plans << plan
-      end
-    end
-    probability = plans.count.to_f / Plan.all.count.to_f
-  end
-
-  def self.probability_y(location)
-    probability = location.plans.count.to_f / Plan.all.count
-  end
 
   def self.bayes_theorem(location, answers)
-    probability = conditional_probability(location, answers) * probability_y(location) / probability_x(answers)
+    probability = probability_location(location, answers) * probability_first_choice(location, answers) / denominator(answers)
   end
 
-  def self.associate_to_plan(locations, plan)
-    locations.each do |location|
-      if location[:status] == 1
-        @location = self.find(location[:id])
-        plan.locations << @location
+  def self.probability_location(location, answers)
+    rest_answers = answers.drop(1)
+    plans = []
+    Plan.all.each do |plan|
+      count = 0
+      all_match_count = 0
+      plan.answers.each do |plan_answer|
+        rest_answers.each do |answer|
+          if plan_answer.choice_id == answer.choice_id
+            count += 1
+          end
+        end
+      end
+      if rest_answers.count == count
+        plans << plan
       end
     end
-    plan.locations
+    choiced_location_count = 0
+    plans.each do |plan|
+      if plan.locations.include?(location)
+        choiced_location_count += 1
+      end
+    end
+
+    if plans.count != 0
+      choiced_location_count.to_f / plans.count.to_f
+    else
+      0.0
+    end
   end
+
+
+
+  def self.probability_first_choice(location, answers)
+    rest_answers = answers.drop(1)
+    plans = []
+    Plan.all.each do |plan|
+      count = 0
+      all_match_count = 0
+      plan.answers.each do |plan_answer|
+        rest_answers.each do |answer|
+          if plan_answer.choice_id == answer.choice_id
+            count += 1
+          end
+        end
+      end
+      if rest_answers.count == count
+        plans << plan
+      end
+    end
+    choiced_location_count = 0
+    plans.each do |plan|
+      if plan.locations.include?(location)
+        choiced_location_count += 1
+      end
+    end
+    all_match_plans = []
+    Plan.all.each do |plan|
+      count = 0
+      all_match_count = 0
+      plan.answers.each do |plan_answer|
+        answers.each do |answer|
+          if plan_answer.choice_id == answer.choice_id
+            all_match_count += 1
+          end
+        end
+      end
+
+      if answers.count == all_match_count
+        all_match_plans << plan
+      end
+    end
+
+    all_appropriate_condition_count = 0
+    all_match_plans.each do |plan|
+      if plan.locations.include?(location)
+        all_appropriate_condition_count += 1
+      end
+    end
+    if choiced_location_count != 0
+      all_appropriate_condition_count.to_f / choiced_location_count.to_f
+    else
+      0.0
+    end
+  end
+
+
+
+  def self.denominator(answers)
+    rest_answers = answers.drop(1)
+    plans = []
+    all_match_plans = []
+    Plan.all.each do |plan|
+      count = 0
+      all_match_count = 0
+      plan.answers.each do |plan_answer|
+        answers.each do |answer|
+          if plan_answer.choice_id == answer.choice_id
+            all_match_count += 1
+          end
+        end
+        rest_answers.each do |answer|
+          if plan_answer.choice_id == answer.choice_id
+            count += 1
+          end
+        end
+      end
+      if rest_answers.count == count
+        plans << plan
+      end
+
+      if answers.count == all_match_count
+        all_match_plans << plan
+      end
+    end
+    if plans.count != 0
+      all_match_plans.count.to_f / plans.count.to_f
+    else
+      0.0
+    end
+  end
+
+
+    def self.associate_to_plan(locations, plan)
+      locations.each do |location|
+        if location[:status] == 1
+          @location = self.find(location[:id])
+          plan.locations << @location
+        end
+      end
+    end
 end
