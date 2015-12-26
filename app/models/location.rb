@@ -175,7 +175,7 @@ class Location < ActiveRecord::Base
 
     def self.associate_to_plan(locations, plan)
       locations.each do |location|
-        if location[:status] == 1
+        if location[:status].to_i == 1
           @location = self.find(location[:id])
           plan.locations << @location
         end
